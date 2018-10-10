@@ -1,5 +1,18 @@
 pipeline {
     agent any
+    stages{
+        stage('Build') {
+            steps {
+                bat 'mvn clean package'
+            }
+        }
+    }
+
+
+
+    /*
+    // Pree Section 6 Docker Shit
+    agent any
 
     parameters {
         string(name: 'tomcat_dev', defaultValue: 'localhost', description: 'Staging Server')
@@ -62,4 +75,5 @@ pipeline {
             }
         }
     }
+    */
 }
