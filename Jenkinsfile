@@ -13,8 +13,8 @@ pipeline {
     stages{
         stage('Build') {
             steps {
-                sh 'mvn clean package'
-                //bat 'mvn clean package'
+                //sh 'mvn clean package'
+                bat 'mvn clean package'
             }
             post {
                 success {
@@ -28,7 +28,8 @@ pipeline {
             parallel {
                 stage ('Deploy to Staging'){
                     steps {
-                        sh "scp -i C:\\Users\\496117\\Downloads\\tomcat-udemy-jenkins.pem **/target/*.war ec2-user@${params.tomcat_dev}:/var/lib/tomcat7/webapps"
+                        //sh "scp -i C:\\Users\\496117\\Downloads\\tomcat-udemy-jenkins.pem **/target/*.war ec2-user@${params.tomcat_dev}:/var/lib/tomcat7/webapps"
+                        bat "scp -i C:\\Users\\496117\\Downloads\\tomcat-udemy-jenkins.pem **/target/*.war ec2-user@${params.tomcat_dev}:/var/lib/tomcat7/webapps"
 
                         // Original
                         //sh "scp -i /home/jenkins/tomcat-demo.pem **/target/*.war ec2-user@${params.tomcat_dev}:/var/lib/tomcat7/webapps"
@@ -39,6 +40,7 @@ pipeline {
                 stage ("Deploy to Production") {
                     steps {
                         sh "scp -i C:\\Users\\496117\\Downloads\\tomcat-udemy-jenkins.pem **/target/*.war ec2-user@${params.tomcat_prod}:/var/lib/tomcat7/webapps"
+                        bat "scp -i C:\\Users\\496117\\Downloads\\tomcat-udemy-jenkins.pem **/target/*.war ec2-user@${params.tomcat_prod}:/var/lib/tomcat7/webapps"
 
                         // Original
                         //sh "scp -i /home/jenkins/tomcat-demo.pem **/target/*.war ec2-user@${params.tomcat_prod}:/var/lib/tomcat7/webapps"
